@@ -11,8 +11,14 @@ python3 -m pip install --upgrade pip
 python3 -m pip install dbt-core dbt-postgres
 python3 -m pip install -U prefect
 python3 -m pip install prefect-airbyte
+python3 -m pip install "prefect[docker]"
 
 cd dbt_transform
 dbt deps
 dbt debug
+cd ..
+
+cd prefect/flows
+python create_cred.py
+cd ..
 cd ..

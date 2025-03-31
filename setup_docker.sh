@@ -1,5 +1,15 @@
 #!/bin/bash
 
+docker build -t pref ./prefect
+
+docker run \
+    --net postgresnet \
+    --name prefsrv \
+    -p 4200:4200 \
+    -v ${PWD}/prefect/flows:/mnt/flows \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -d pref
+
 docker run \
     --net postgresnet \
     --name dwhdb \
@@ -27,3 +37,10 @@ while true; do
         sleep 1
     fi
 done
+
+docker exec prefsrv pip install --upgrade pip
+docker exec prefsrv pip install "prefect[docker]"
+docker exec prefsrv pip install hapless
+#docker exec prefsrv hap run prefect work-pool create --type process dwhpool
+#docker exec prefsrv hap run prefect worker start --pool dwhpool
+docker exec prefsrv sh -c "cd /mnt/flows && hap run python airbyte_flow.py"

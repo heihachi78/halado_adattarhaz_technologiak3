@@ -5,13 +5,23 @@
 
 from prefect import flow, task
 import requests
-from airbyte_api import get_all_info
 import time
+import json
 
 
 @task
 def collect_airbyte_info():
-    return get_all_info()
+    with open("prefect/flows/cred.json", "r") as cred_file:
+        credentials = json.load(cred_file)
+    return (
+        credentials["token"],
+        credentials["app_id"],
+        credentials["client_id"],
+        credentials["client_secret"],
+        credentials["connection_id"],
+        credentials["airbyte_url"],
+        credentials["api_url"],
+    )
 
 
 #https://reference.airbyte.com/reference/createjob
@@ -51,8 +61,9 @@ def check_airbyte_sync_job(url, api, token, job_id):
 @flow
 def trigger_airbyte_sync():
     TOKEN, app_id, client_id, client_secret, CONNECTION_ID, AIRBYTE_URL, API_URL = collect_airbyte_info()
-    job_id = run_airbyte_sync_job(AIRBYTE_URL, API_URL, TOKEN, CONNECTION_ID)
-    check_airbyte_sync_job(AIRBYTE_URL, API_URL, TOKEN, job_id)
+    JOB_ID = run_airbyte_sync_job(AIRBYTE_URL, API_URL, TOKEN, CONNECTION_ID)
+    check_airbyte_sync_job(AIRBYTE_URL, API_URL, TOKEN, JOB_ID)
+
 
 
 if __name__ == "__main__":
