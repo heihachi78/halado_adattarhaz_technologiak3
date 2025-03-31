@@ -19,6 +19,6 @@ dbt debug
 cd ..
 
 cd prefect/flows
-python create_cred.py
+python3 create_cred.py
 cd ..
 cd ..

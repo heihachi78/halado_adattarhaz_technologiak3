@@ -10,10 +10,12 @@ docker rm prefsrv
 cd tdb
 ${PWD}/uninstall.sh
 cd ..
-rm -rf ${PWD}/tdb
-echo "uninstall done"
 
 abctl local uninstall --persisted
+
+rm -rf ${PWD}/tdb
 rm -rf ~/.airbyte
 rm -rf ${PWD}/.venv
 rm -f ${PWD}/prefect/flows/cred.json
+
+echo "uninstall done"

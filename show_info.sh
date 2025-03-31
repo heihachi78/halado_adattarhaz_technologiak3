@@ -3,10 +3,13 @@
 
 SRV1_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' srv1)
 DWHDB_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' dwhdb)
+AIRBYTE_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' airbyte-abctl-control-plane)
+
 
 echo "IP ADDRESSES"
 echo "srv1 : $SRV1_IP"
 echo "dwhdb : $DWHDB_IP"
+echo "airbyte : $AIRBYTE_IP"
 
 echo "PORT MAPPINGS"
 echo "srv1 : 5432->5431"

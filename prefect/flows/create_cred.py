@@ -21,7 +21,7 @@ credentials = {
     "api_url": api_url
 }
 
-with open("prefect/flows/cred.json", "w") as cred_file:
+with open("cred.json", "w") as cred_file:
     json.dump(credentials, cred_file, indent=4)
 
 
