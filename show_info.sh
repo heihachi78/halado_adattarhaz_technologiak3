@@ -23,3 +23,7 @@ echo "airbyte/pass"
 
 abctl local credentials
 abctl local status
+
+echo ""
+echo "Prefect dashboard: http://localhost:4200"
+echo "Airbyte dashboard: http://localhost:8000"

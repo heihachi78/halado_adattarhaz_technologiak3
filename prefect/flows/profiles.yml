@@ -2,9 +2,9 @@ dbt_transform:
   outputs:
     dev:
       dbname: dwh
-      host: localhost
+      host: dwhdb
       pass: pass
-      port: 5454
+      port: 5432
       schema: public
       threads: 1
       type: postgres

@@ -9,5 +9,3 @@ cd ..
 ./setup_airbyte.sh
 ./setup_python.sh
 ./show_info.sh
-
-prefect server start

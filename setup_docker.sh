@@ -7,7 +7,7 @@ docker run \
     --name prefsrv \
     -p 4200:4200 \
     -v ${PWD}/prefect/flows:/mnt/flows \
-    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v ${PWD}/dbt_transform:/mnt/dbt_transform \
     -d pref
 
 docker run \
@@ -39,8 +39,8 @@ while true; do
 done
 
 docker exec prefsrv pip install --upgrade pip
-docker exec prefsrv pip install "prefect[docker]"
+docker exec prefsrv pip install dbt-core
+docker exec prefsrv pip install dbt-postgres
+docker exec prefsrv pip install --pre prefect-dbt
 docker exec prefsrv pip install hapless
-#docker exec prefsrv hap run prefect work-pool create --type process dwhpool
-#docker exec prefsrv hap run prefect worker start --pool dwhpool
 docker exec prefsrv sh -c "cd /mnt/flows && hap run python airbyte_flow.py"

@@ -7,12 +7,15 @@ from prefect import flow, task
 import requests
 import time
 import json
+from prefect_dbt import PrefectDbtRunner, PrefectDbtSettings
+
 
 
 @task
 def collect_airbyte_info():
-    with open("prefect/flows/cred.json", "r") as cred_file:
+    with open("cred.json", "r") as cred_file:
         credentials = json.load(cred_file)
+        print("OK credentials retreived")
     return (
         credentials["token"],
         credentials["app_id"],
@@ -39,6 +42,7 @@ def run_airbyte_sync_job(url, api, token, connection_id):
     }
     response = requests.post(url, json=payload, headers=headers)
     response.raise_for_status()
+    print("OK sync started...")
     return response.json()['jobId']
 
 
@@ -55,7 +59,19 @@ def check_airbyte_sync_job(url, api, token, job_id):
         response = requests.get(url, headers=headers)
         status = response.json()['status']
         time.sleep(1)
-    print(response.text)
+        print("INFO waiting for sync to finish...")
+    print("OK sync finished...")
+
+
+@flow
+def run_dbt():
+    PrefectDbtRunner(
+        manifest="/mnt/dbt_transform/target/manifest.json",
+        settings=PrefectDbtSettings(
+            project_dir="/mnt/dbt_transform",
+            profiles_dir="/mnt/flows"
+        )
+    ).invoke(["build"])
 
 
 @flow
@@ -63,6 +79,7 @@ def trigger_airbyte_sync():
     TOKEN, app_id, client_id, client_secret, CONNECTION_ID, AIRBYTE_URL, API_URL = collect_airbyte_info()
     JOB_ID = run_airbyte_sync_job(AIRBYTE_URL, API_URL, TOKEN, CONNECTION_ID)
     check_airbyte_sync_job(AIRBYTE_URL, API_URL, TOKEN, JOB_ID)
+    run_dbt()
 
 
 

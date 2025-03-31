@@ -17,7 +17,7 @@ credentials = {
     "client_id": client_id,
     "client_secret": client_secret,
     "connection_id": connection['connectionId'],
-    "airbyte_url": airbyte_url,
+    "airbyte_url": "http://airbyte-abctl-control-plane:80",
     "api_url": api_url
 }
 

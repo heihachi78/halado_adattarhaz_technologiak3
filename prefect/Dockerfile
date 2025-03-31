@@ -1,6 +1,7 @@
-FROM prefecthq/prefect:3.0.0rc14-python3.11
+#FROM prefecthq/prefect:3.0.0rc14-python3.11
+FROM prefecthq/prefect:3-python3.12
 
-ENV PREFECT_API_URL=http://prefsrv:4200/api
+ENV PREFECT_API_URL=http://localhost:4200/api
 
 EXPOSE 4200
 
