@@ -7,7 +7,7 @@ from prefect import flow, task
 import requests
 import time
 import json
-from prefect_dbt import PrefectDbtRunner, PrefectDbtSettings
+from prefect_dbt import DbtCoreOperation
 
 
 
@@ -60,18 +60,18 @@ def check_airbyte_sync_job(url, api, token, job_id):
         status = response.json()['status']
         time.sleep(1)
         print("INFO waiting for sync to finish...")
+    time.sleep(1)
     print("OK sync finished...")
 
 
 @flow
-def run_dbt():
-    PrefectDbtRunner(
-        manifest="/mnt/dbt_transform/target/manifest.json",
-        settings=PrefectDbtSettings(
-            project_dir="/mnt/dbt_transform",
-            profiles_dir="/mnt/flows"
-        )
-    ).invoke(["build"])
+def trigger_dbt_build():
+    result = DbtCoreOperation(
+        commands=["dbt build"],
+        project_dir="/mnt/dbt_transform",
+        profiles_dir="/mnt/flows"
+    ).run()
+    return result
 
 
 @flow
@@ -79,7 +79,7 @@ def trigger_airbyte_sync():
     TOKEN, app_id, client_id, client_secret, CONNECTION_ID, AIRBYTE_URL, API_URL = collect_airbyte_info()
     JOB_ID = run_airbyte_sync_job(AIRBYTE_URL, API_URL, TOKEN, CONNECTION_ID)
     check_airbyte_sync_job(AIRBYTE_URL, API_URL, TOKEN, JOB_ID)
-    run_dbt()
+    trigger_dbt_build()
 
 
 
