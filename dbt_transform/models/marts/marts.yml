@@ -1,0 +1,6 @@
+
+version: 2
+
+models:
+  - name: mart_sum_payment_by_date_yqmd
+    description: "sum payments by year, quarter, month, day"

@@ -44,3 +44,10 @@ docker exec prefsrv pip install dbt-postgres
 docker exec prefsrv pip install --pre prefect-dbt
 docker exec prefsrv pip install hapless
 docker exec prefsrv sh -c "cd /mnt/flows && hap run python airbyte_flow.py"
+
+docker run \
+    -d \
+    --net postgresnet \
+    -p 3000:3000 \
+    -v ${PWD}/metabase-data:/metabase.db \
+    --name metabase metabase/metabase

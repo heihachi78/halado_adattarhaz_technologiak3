@@ -1,3 +1,16 @@
+PREFECT
+http://localhost:4200
+
+METABASE
+http://localhost:3000
+user: pemik@bead.hu
+pass: pass19
+
+PGADMIN
+http://localhost:8080
+user: beadando@pemik.hu
+pass: pass
+
 AIRFLOW
 http://localhost:8000
 user: pemik@bead.hu
@@ -41,6 +54,3 @@ database: dwh
 schema: staging
 user: airbyte
 password: pass
-
-PREFECT
-http://localhost:4200

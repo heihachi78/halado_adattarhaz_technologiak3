@@ -2,14 +2,16 @@
 
 echo "uninstalling..."
 
+cd tdb
+${PWD}/uninstall.sh
+cd ..
+
 docker stop dwhdb
 docker rm dwhdb
 docker stop prefsrv
 docker rm prefsrv
-
-cd tdb
-${PWD}/uninstall.sh
-cd ..
+docker stop metabase
+docker rm metabase
 
 abctl local uninstall --persisted
 

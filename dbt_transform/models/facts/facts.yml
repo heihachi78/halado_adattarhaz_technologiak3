@@ -1,0 +1,47 @@
+
+version: 2
+
+models:
+  - name: fact_payments
+    description: "all payments"
+    columns:
+      - name: sector_id
+        description: "sector dimension"
+        data_tests:
+          - not_null
+      - name: partner_id
+        description: "partner dimension"
+        data_tests:
+          - not_null
+      - name: purchase_id
+        description: "purchase dimension"
+        data_tests:
+          - not_null
+      - name: case_id
+        description: "case dimension"
+        data_tests:
+          - not_null
+      - name: debtor_id
+        description: "debtor dimension"
+        data_tests:
+          - not_null
+      - name: person_id
+        description: "person dimension"
+        data_tests:
+          - not_null
+      - name: bank_account_id
+        description: "bank account dimension"
+        data_tests:
+          - not_null
+      - name: payment_id
+        description: "payment dimension"
+        data_tests:
+          - not_null
+      - name: payment_date
+        description: "date dimension"
+        data_tests:
+          - not_null
+      - name: amount
+        description: "amount of payment that was bayed by the debtor"
+        data_tests:
+          - not_null
