@@ -18,6 +18,6 @@ rm -rf ~/.airbyte
 rm -rf ${PWD}/.venv
 rm -f ${PWD}/prefect/flows/cred.json
 
-docker rm postgresnet
+docker network rm postgresnet
 
 echo "uninstall done"

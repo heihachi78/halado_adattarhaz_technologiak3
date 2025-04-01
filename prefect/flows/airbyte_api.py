@@ -190,7 +190,7 @@ def createdestination(url, api, token, workspace_id):
                 'tunnel_method': 'NO_TUNNEL'
             }, 
             'disable_type_dedupe': False, 
-            'unconstrained_number': False
+            'unconstrained_number': True
         }
     }
     headers = {
