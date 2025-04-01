@@ -13,7 +13,7 @@ http://localhost:8080
 user: beadando@pemik.hu
 pass: pass
 
-### AIRFLOW
+### AIRBYTE
 http://localhost:8000
 user: pemik@bead.hu
 org: bead

@@ -19,18 +19,16 @@ docker exec -u postgres dwhdb createuser -s dwh
 docker exec -u postgres dwhdb createdb dwh -O dwh
 docker exec -u postgres dwhdb psql -p 5432 -U postgres -d postgres -t -c "alter user dwh with password 'pass';"
 docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "create schema if not exists staging;"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "CREATE USER airbyte WITH PASSWORD 'pass';"
 
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT CONNECT ON DATABASE dwh TO airbyte;"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON DATABASE dwh TO airbyte;"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT USAGE ON SCHEMA staging TO airbyte;"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON SCHEMA staging TO airbyte;"
+docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "CREATE USER airbyte WITH PASSWORD 'pass';"
+docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON DATABASE dwh TO airbyte;" #connect, create scheme, temp
+docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON SCHEMA staging TO airbyte;" #usage, create table
+docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "ALTER DEFAULT PRIVILEGES IN SCHEMA staging GRANT ALL ON TABLES TO airbyte;" #all...
 
 docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "CREATE USER dbt WITH PASSWORD 'pass';"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT CONNECT ON DATABASE dwh TO dbt;"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON DATABASE dwh TO dbt;"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT USAGE ON SCHEMA staging TO dbt;"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT USAGE ON SCHEMA public TO dbt;"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON SCHEMA staging TO dbt;"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON SCHEMA public TO dbt;"
-docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT SELECT ON ALL TABLES IN SCHEMA staging TO dbt;"
+docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON DATABASE dwh TO dbt;" #connect, create scheme, temp
+docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON SCHEMA staging TO dbt;" #usage, create table
+docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "ALTER DEFAULT PRIVILEGES IN SCHEMA staging GRANT ALL ON TABLES TO dbt;" #all...
+docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON SCHEMA public TO dbt;" #usage, create table
+docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO dbt;" #all...
+docker exec -u postgres dwhdb psql -p 5432 -U dwh -d dwh -t -c "GRANT ALL ON ALL TABLES IN SCHEMA staging TO dbt;" #all...

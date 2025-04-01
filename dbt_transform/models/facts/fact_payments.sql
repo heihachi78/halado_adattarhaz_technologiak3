@@ -27,4 +27,12 @@ where
 	t.person_id = p.person_id and
 	a.bank_account_id = p.bank_account_id and 
 	d.person_id = t.person_id and 
-	d.case_id = c.case_id
+	d.case_id = c.case_id and 
+	o.deleted_at is null and
+	n.deleted_at is null and
+	r.deleted_at is null and
+	c.deleted_at is null and
+	d.deleted_at is null and
+	t.deleted_at is null and
+	a.deleted_at is null and
+	p.deleted_at is null

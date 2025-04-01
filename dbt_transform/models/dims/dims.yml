@@ -26,3 +26,11 @@ models:
         data_tests:
           - not_null
           - unique
+  - name: dim_purchases
+    description: "purchase dimension"
+    columns:
+      - name: purchase_id
+        description: "primary key"
+        data_tests:
+          - not_null
+          - unique

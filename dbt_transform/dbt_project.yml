@@ -20,3 +20,5 @@ models:
       +materialized: table
     dims:
       +materialized: table
+    marts:
+      +materialized: table

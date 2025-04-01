@@ -39,10 +39,10 @@ while true; do
 done
 
 docker exec prefsrv pip install --upgrade pip
-docker exec prefsrv pip install dbt-core
-docker exec prefsrv pip install dbt-postgres
-docker exec prefsrv pip install --pre prefect-dbt
-docker exec prefsrv pip install hapless
+docker exec prefsrv pip install -q dbt-core
+docker exec prefsrv pip install -q dbt-postgres
+docker exec prefsrv pip install -q --pre prefect-dbt
+docker exec prefsrv pip install -q hapless
 docker exec prefsrv sh -c "cd /mnt/flows && hap run python airbyte_flow.py"
 
 docker run \
