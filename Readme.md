@@ -1,38 +1,42 @@
-PREFECT
+## USEFUL INFOS
+
+### PREFECT
 http://localhost:4200
 
-METABASE
+### METABASE
 http://localhost:3000
 user: pemik@bead.hu
 pass: pass19
 
-PGADMIN
+### PGADMIN
 http://localhost:8080
 user: beadando@pemik.hu
 pass: pass
 
-AIRFLOW
+### AIRFLOW
 http://localhost:8000
 user: pemik@bead.hu
 org: bead
 pass: pass
 
-IP ADDRESSES
+### IP ADDRESSES
 srv1: 172.21.0.2
 dwhdb: 172.21.0.7
 
-PORT MAPPINGS
+### PORT MAPPINGS
 srv1: 5432->5431
 dwhdb: 5432->5454
 
-DB PASSWORDS
+### DB PASSWORDS
 postgres/pass
 cms/pass
 dwh/pass
 airbyte/pass
+dbt/pass
 
-AIRFLOW SETUP
-SOURCE
+## AIRFLOW SETUP
+
+### SOURCE
 connector: Postgres
 name: Postgres SRV1
 host: host.docker.internal
@@ -45,7 +49,7 @@ publication: airbyte_publication
 heartbeat SQL: INSERT INTO airbyte_heartbeat (text) VALUES ('heartbeat')
 invalid CDC behaviour: re-sync data
 
-DESTINATION
+### DESTINATION
 connector: Postgres
 name: Postgres DWHDB
 host: host.docker.internal
