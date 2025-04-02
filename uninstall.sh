@@ -6,6 +6,7 @@ cd tdb
 ${PWD}/uninstall.sh
 cd ..
 
+docker volume rm dwhdbdata
 docker stop dwhdb
 docker rm dwhdb
 docker stop prefsrv

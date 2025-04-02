@@ -21,3 +21,5 @@ cd prefect/flows
 python3 create_cred.py
 cd ..
 cd ..
+
+docker exec prefsrv sh -c "cd /mnt/flows && hap run python airbyte_flow.py"

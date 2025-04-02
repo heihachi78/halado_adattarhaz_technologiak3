@@ -146,7 +146,6 @@ def createsource(url, api, token, workspace_id):
             }, 
             'replication_method': {
                 'method': 'CDC', 
-                'plugin': 'pgoutput', 
                 'queue_size': 10000, 
                 'publication': 'airbyte_publication', 
                 'replication_slot': 'airbyte_slot', 
@@ -224,8 +223,7 @@ def createconnection(url, api, token, source_id, destination_id, workspace_id):
                     'primaryKey': [['purchase_id']]
                 }, {
                     'name': 'cities', 
-                    'syncMode': 
-                    'incremental_deduped_history', 
+                    'syncMode': 'incremental_deduped_history', 
                     'cursorField': ['_ab_cdc_lsn'], 
                     'primaryKey': [['city_id']]
                 }, {

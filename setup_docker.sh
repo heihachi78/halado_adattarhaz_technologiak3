@@ -10,6 +10,8 @@ docker run \
     -v ${PWD}/dbt_transform:/mnt/dbt_transform \
     -d pref
 
+docker volume create --name dwhdbdata
+
 docker run \
     --net postgresnet \
     --name dwhdb \
@@ -20,6 +22,7 @@ docker run \
     -e PGPASSFILE="/mnt/config/.pgpass" \
     -p 5454:5432 \
     -v ${PWD}/dwhdb/mnt/config:/mnt/config \
+    -v dwhdbdata:/mnt/data \
     -d pgs \
     -c "config_file=/mnt/config/postgresql.conf"
 
@@ -43,7 +46,6 @@ docker exec prefsrv pip install -q dbt-core
 docker exec prefsrv pip install -q dbt-postgres
 docker exec prefsrv pip install -q --pre prefect-dbt
 docker exec prefsrv pip install -q hapless
-docker exec prefsrv sh -c "cd /mnt/flows && hap run python airbyte_flow.py"
 
 docker run \
     -d \

@@ -18,7 +18,10 @@ models:
   dbt_transform:
     facts:
       +materialized: table
+      +unlogged: true
     dims:
       +materialized: table
+      +unlogged: true
     marts:
       +materialized: table
+      +unlogged: true

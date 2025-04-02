@@ -1,4 +1,3 @@
-
 select 
 	o.sector_id,
 	n.partner_id,
@@ -20,14 +19,14 @@ from
 	{{ source("staging", "bank_accounts") }} a,
 	{{ source("staging", "payments") }} p
 where
-	p.case_id = c.case_id and 
-	r.purchase_id = c.purchase_id and 
-	n.partner_id = r.partner_id and
 	o.sector_id = n.sector_id and 
+	n.partner_id = r.partner_id and
+	r.purchase_id = c.purchase_id and 
+	d.case_id = c.case_id and 
+	d.person_id = t.person_id and 
+	p.case_id = c.case_id and 
 	t.person_id = p.person_id and
 	a.bank_account_id = p.bank_account_id and 
-	d.person_id = t.person_id and 
-	d.case_id = c.case_id and 
 	o.deleted_at is null and
 	n.deleted_at is null and
 	r.deleted_at is null and

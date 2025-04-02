@@ -8,5 +8,5 @@ dbt_transform:
       schema: public
       threads: 1
       type: postgres
-      user: dbt
+      user: dwh
   target: dev
