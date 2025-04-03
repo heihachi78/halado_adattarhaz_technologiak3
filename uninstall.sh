@@ -6,18 +6,15 @@ cd tdb
 ${PWD}/uninstall.sh
 cd ..
 
-docker volume rm dwhdbdata
 docker stop dwhdb
 docker rm dwhdb
+docker volume rm dwhdbdata
 docker stop prefsrv
 docker rm prefsrv
 docker stop metabase
 docker rm metabase
 
-abctl local uninstall --persisted
-
 rm -rf ${PWD}/tdb
-rm -rf ~/.airbyte
 rm -rf ${PWD}/.venv
 rm -f ${PWD}/prefect/flows/cred.json
 

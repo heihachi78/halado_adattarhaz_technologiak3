@@ -1,0 +1,66 @@
+version: 1
+default_environment: dev
+project_id: 22b89bae-4a31-4ce4-aeab-cf327d39b5e7
+environments:
+- name: dev
+send_anonymous_usage_stats: false
+plugins:
+  extractors:
+  - name: srv1-extract
+    inherit_from: tap-postgres
+    config:
+      default_replication_method: LOG_BASED
+      default_replication-key: _sdc_lsn
+      replication_slot_name: meltano_slot
+  - name: tap-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-tap-postgres
+    config:
+      database: cms
+      filter_schemas:
+      - public
+      host: srv1
+      port: 5432
+      user: meltano
+    select:
+    - public-purchases.*
+    - public-cases.*
+    - public-regions.*
+    - public-cities.*
+    - public-payments.*
+    - public-debts.*
+    - public-payed_debts.*
+    - public-debtors.*
+    - public-debtor_types.*
+    - public-persons.*
+    - public-sectors.*
+    - public-partners.*
+    - public-genders.*
+    - public-account_holders.*
+    - public-bank_accounts.*
+  loaders:
+  - name: dwhdb-load
+    inherit_from: target-postgres
+  - name: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      database: dwh
+      default_target_schema: staging
+      host: dwhdb
+      load_method: upsert
+      port: 5432
+      use_copy: true
+      user: dwh
+      activate_version: true
+      dialect+driver: postgresql+psycopg
+  transformers:
+  - name: dbt-postgres
+    variant: dbt-labs
+    pip_url: dbt-core dbt-postgres
+    config:
+      dbname: dwh
+      host: dwhdb
+      port: 5432
+      schema: public
+      user: dwh

@@ -1,0 +1,16 @@
+{
+  "plugin_type": "extractors",
+  "name": "tap-postgres",
+  "namespace": "tap_postgres",
+  "variant": "singer-io",
+  "label": "PostgreSQL",
+  "docs": "https://hub.meltano.com/extractors/tap-postgres--singer-io",
+  "repo": "https://github.com/singer-io/tap-postgres",
+  "pip_url": "tap-postgres",
+  "description": "PostgreSQL database extractor",
+  "logo_url": "https://hub.meltano.com/assets/logos/extractors/postgres.png",
+  "capabilities": [
+    "catalog",
+    "discover"
+  ]
+}

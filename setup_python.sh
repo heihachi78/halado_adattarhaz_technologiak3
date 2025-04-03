@@ -12,14 +12,7 @@ python3 -m pip install -q dbt-core dbt-postgres
 python3 -m pip install -q -U prefect
 python3 -m pip install -q -U --pre prefect-dbt
 
-cd dbt_transform
-dbt deps
-dbt debug
-cd ..
-
-cd prefect/flows
-python3 create_cred.py
-cd ..
-cd ..
-
-docker exec prefsrv sh -c "cd /mnt/flows && hap run python airbyte_flow.py"
+docker exec prefsrv sh -c "cd /mnt/flows && python meltano_flow.py"
+docker exec prefsrv sh -c "cd /mnt/meltano/pemik-dwh && meltano install"
+docker exec prefsrv sh -c "cd /mnt/meltano/pemik-dwh && meltano lock --update --all"
+docker exec prefsrv sh -c "cd /mnt/meltano/pemik-dwh && meltano run srv1-extract dwhdb-load --no-state-update --full-refresh"

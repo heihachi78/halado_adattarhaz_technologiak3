@@ -3,13 +3,13 @@
 
 SRV1_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' srv1)
 DWHDB_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' dwhdb)
-AIRBYTE_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' airbyte-abctl-control-plane)
+PREFECT_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' prefsrv)
 
 
 echo "IP ADDRESSES"
 echo "srv1 : $SRV1_IP"
 echo "dwhdb : $DWHDB_IP"
-echo "airbyte : $AIRBYTE_IP"
+echo "prefect : $PREFECT_IP"
 
 echo "PORT MAPPINGS"
 echo "srv1 : 5432->5431"
@@ -19,11 +19,7 @@ echo "DB PASSWORDS"
 echo "postgres/pass"
 echo "cms/pass"
 echo "dwh/pass"
-echo "airbyte/pass"
-
-abctl local credentials
-abctl local status
+echo "meltano/pass"
 
 echo ""
 echo "Prefect dashboard: http://localhost:4200"
-echo "Airbyte dashboard: http://localhost:8000"

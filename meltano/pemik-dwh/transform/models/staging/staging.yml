@@ -1,0 +1,24 @@
+
+version: 2
+
+sources:
+  - name: staging
+    schema: staging
+    tables:
+      - name: sectors
+        description: "sector records"
+      - name: partners
+        description: "partner records"
+      - name: purchases
+        description: "purchase records"
+      - name: cases
+        description: "case records"
+      - name: debtors
+        description: "debtor records"
+      - name: persons
+        description: "person records"
+      - name: bank_accounts
+        description: "bank account records"
+      - name: payments
+        description: "payment records"
+      

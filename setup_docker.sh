@@ -7,7 +7,7 @@ docker run \
     --name prefsrv \
     -p 4200:4200 \
     -v ${PWD}/prefect/flows:/mnt/flows \
-    -v ${PWD}/dbt_transform:/mnt/dbt_transform \
+    -v ${PWD}/meltano:/mnt/meltano \
     -d pref
 
 docker volume create --name dwhdbdata
@@ -44,8 +44,7 @@ done
 docker exec prefsrv pip install --upgrade pip
 docker exec prefsrv pip install -q dbt-core
 docker exec prefsrv pip install -q dbt-postgres
-docker exec prefsrv pip install -q --pre prefect-dbt
-docker exec prefsrv pip install -q hapless
+docker exec prefsrv pip install -q meltano
 
 docker run \
     -d \
