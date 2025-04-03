@@ -23,3 +23,6 @@ echo "meltano/pass"
 
 echo ""
 echo "Prefect dashboard: http://localhost:4200"
+echo "PgAdmin: http://localhost:8080"
+echo "Metabase: http://localhost:3000"
+echo "creds: pemik@bead.hu/pass19"

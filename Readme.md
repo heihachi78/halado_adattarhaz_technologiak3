@@ -26,4 +26,3 @@ postgres/pass
 cms/pass
 dwh/pass
 meltano/pass
-dbt/pass

@@ -45,6 +45,9 @@ docker exec prefsrv pip install --upgrade pip
 docker exec prefsrv pip install -q dbt-core
 docker exec prefsrv pip install -q dbt-postgres
 docker exec prefsrv pip install -q meltano
+docker exec prefsrv pip install -q hapless
+docker exec prefsrv pip install -q "prefect[shell]"
+docker exec prefsrv prefect block register -m prefect_shell
 
 docker run \
     -d \

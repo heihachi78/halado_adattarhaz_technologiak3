@@ -55,6 +55,8 @@ plugins:
       activate_version: true
       dialect+driver: postgresql+psycopg
   transformers:
+  - name: dwh-transform
+    inherit_from: dbt-postgres
   - name: dbt-postgres
     variant: dbt-labs
     pip_url: dbt-core dbt-postgres
