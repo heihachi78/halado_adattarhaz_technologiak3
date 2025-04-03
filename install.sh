@@ -6,5 +6,5 @@ ${PWD}/install.sh
 cd ..
 ./setup_docker.sh
 ./setup_db.sh
-./setup_python.sh
+./setup_meltano.sh
 ./show_info.sh

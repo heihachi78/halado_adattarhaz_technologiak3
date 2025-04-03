@@ -8,7 +8,7 @@ from prefect_shell import ShellOperation
 def trigger_meltano():
     with ShellOperation(
         commands=[
-            "cd /mnt/meltano/pemik-dwh && meltano run srv1-extract dwhdb-load dwh-transform",
+            "cd /mnt/meltano/pemik-dwh && meltano run srv1-extract dwhdb-load dwh-transform:build",
         ],
         working_dir="/mnt/meltano/pemik-dwh",
     ) as meltano_operation:
