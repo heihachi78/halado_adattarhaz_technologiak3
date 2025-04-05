@@ -21,4 +21,7 @@ sources:
         description: "bank account records"
       - name: payments
         description: "payment records"
-      
+      - name: debts
+        description: "debt records"
+      - name: payed_debts
+        description: "covered debt records"

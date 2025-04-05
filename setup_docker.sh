@@ -6,6 +6,7 @@ docker run \
     --net postgresnet \
     --name prefsrv \
     -p 4200:4200 \
+    -p 8082:8080 \
     -v ${PWD}/prefect/flows:/mnt/flows \
     -v ${PWD}/meltano:/mnt/meltano \
     -d pref

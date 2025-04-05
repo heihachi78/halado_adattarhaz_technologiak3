@@ -6,7 +6,7 @@ select
 	dd."day",
 	sum(fp.amount)
 from 
-	{{ ref("fact_payments") }} fp, 
+	{{ ref("fact_incoming_revenue") }} fp, 
 	{{ ref("dim_dates") }} dd 
 where 
 	fp.payment_date = dd.date_id

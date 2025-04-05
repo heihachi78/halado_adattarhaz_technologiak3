@@ -2,7 +2,7 @@
 version: 2
 
 models:
-  - name: fact_payments
+  - name: fact_incoming_revenue
     description: "all payments"
     columns:
       - name: sector_id
@@ -30,6 +30,9 @@ models:
         description: "case dimension"
         data_tests:
           - not_null
+          - relationships:
+              to: ref('dim_cases')
+              field: case_id
       - name: debtor_id
         description: "debtor dimension"
         data_tests:
@@ -46,10 +49,14 @@ models:
         description: "payment dimension"
         data_tests:
           - not_null
+          - unique
       - name: payment_date
         description: "date dimension"
         data_tests:
           - not_null
+          - relationships:
+                to: ref('dim_dates')
+                field: date_id
       - name: amount
         description: "amount of payment that was bayed by the debtor"
         data_tests:
@@ -82,6 +89,10 @@ models:
         description: "case dimension"
         data_tests:
           - not_null
+          - unique
+          - relationships:
+              to: ref('dim_cases')
+              field: case_id
       - name: purchased_at
         description: "date dimension"
         data_tests:
@@ -92,5 +103,61 @@ models:
           - not_null
       - name: calculated_purchase_value
         description: "batch purchase value scaled by the total purchased debt amount of this case"
+        data_tests:
+          - not_null
+  - name: fact_booked_transactions
+    description: "bookings of all payments on debts"
+    columns:
+      - name: payed_debt_id
+        description: "no dimension for this but serves ass a unique key"
+        data_tests:
+          - not_null
+          - unique
+      - name: sector_id
+        description: "sector dimension"
+        data_tests:
+          - not_null
+          - relationships:
+                to: ref('dim_sectors')
+                field: sector_id
+      - name: partner_id
+        description: "partner dimension"
+        data_tests:
+          - not_null
+          - relationships:
+                to: ref('dim_partners')
+                field: partner_id
+      - name: purchase_id
+        description: "purchase dimension"
+        data_tests:
+          - not_null
+          - relationships:
+                to: ref('dim_purchases')
+                field: purchase_id
+      - name: case_id
+        description: "case dimension"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_cases')
+              field: case_id
+      - name: invoice_date
+        description: "date dimension"
+        data_tests:
+          - not_null
+      - name: days_covered
+        description: "how many days this transaction covers"
+        data_tests:
+          - not_null
+      - name: debt_amount_covered
+        description: "how much from the debt this transaction covers"
+        data_tests:
+          - not_null
+      - name: interest_amount_covered
+        description: "how much from the interest this transaction covers"
+        data_tests:
+          - not_null
+      - name: overpayment
+        description: "how much from the the payment was over the required amount to close the case"
         data_tests:
           - not_null
