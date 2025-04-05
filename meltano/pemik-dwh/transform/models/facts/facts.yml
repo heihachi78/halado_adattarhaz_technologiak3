@@ -161,3 +161,27 @@ models:
         description: "how much from the the payment was over the required amount to close the case"
         data_tests:
           - not_null
+  - name: fact_purchased_batches
+    description: "batch values of all purchases"
+    columns:
+      - name: sector_id
+        description: "sector dimension"
+        data_tests:
+          - not_null
+          - relationships:
+                to: ref('dim_sectors')
+                field: sector_id
+      - name: partner_id
+        description: "partner dimension"
+        data_tests:
+          - not_null
+          - relationships:
+                to: ref('dim_partners')
+                field: partner_id
+      - name: purchase_id
+        description: "purchase dimension"
+        data_tests:
+          - not_null
+          - relationships:
+                to: ref('dim_purchases')
+                field: purchase_id 
