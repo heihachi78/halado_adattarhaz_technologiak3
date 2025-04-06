@@ -65,3 +65,12 @@ models:
           - not_null
           - unique
           - dbt_constraints.primary_key
+  - name: dim_payments
+    description: "payment dimension"
+    columns:
+      - name: payment_id
+        description: "primary key"
+        data_tests:
+          - not_null
+          - unique
+          - dbt_constraints.primary_key

@@ -7,9 +7,7 @@
 	  {'columns': ['partner_id']},
 	  {'columns': ['purchase_id']},
 	  {'columns': ['case_id']},
-	  {'columns': ['debtor_id']},
 	  {'columns': ['person_id']},
-	  {'columns': ['bank_account_id']},
 	  {'columns': ['payment_date']}
     ]
 )}}
@@ -20,9 +18,7 @@ select
 	n.partner_id,
 	r.purchase_id,
 	c.case_id,
-	d.debtor_id,
 	t.person_id,
-	a.bank_account_id,
 	p.payment_date::date,
 	p.amount
 from

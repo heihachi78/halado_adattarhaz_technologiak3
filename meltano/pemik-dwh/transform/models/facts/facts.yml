@@ -33,23 +33,21 @@ models:
           - relationships:
               to: ref('dim_cases')
               field: case_id
-      - name: debtor_id
-        description: "debtor dimension"
-        data_tests:
-          - not_null
       - name: person_id
         description: "person dimension"
         data_tests:
           - not_null
-      - name: bank_account_id
-        description: "bank account dimension"
-        data_tests:
-          - not_null
+          - relationships:
+              to: ref('dim_persons')
+              field: person_id
       - name: payment_id
         description: "payment dimension"
         data_tests:
           - not_null
           - unique
+          - relationships:
+              to: ref('dim_payments')
+              field: payment_id
       - name: payment_date
         description: "date dimension"
         data_tests:
@@ -155,6 +153,13 @@ models:
           - relationships:
               to: ref('dim_persons')
               field: person_id
+      - name: payment_id
+        description: "payment dimension"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_payments')
+              field: payment_id
       - name: invoice_date
         description: "date dimension"
         data_tests:
