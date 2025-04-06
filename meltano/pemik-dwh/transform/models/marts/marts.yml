@@ -2,5 +2,35 @@
 version: 2
 
 models:
-  - name: mart_sum_payment_by_date_yqmd
-    description: "sum payments by year, quarter, month, day"
+  - name: mart_margin_data
+    description: "comparision of incoming and outgoing payments"
+    columns:
+      - name: sector_id
+        description: "sector dimension"
+        data_tests:
+          - not_null
+          - relationships:
+                to: ref('dim_sectors')
+                field: sector_id
+      - name: partner_id
+        description: "partner dimension"
+        data_tests:
+          - not_null
+          - relationships:
+                to: ref('dim_partners')
+                field: partner_id
+      - name: data_point_date
+        description: "date dimension"
+        data_tests:
+          - not_null
+          - relationships:
+                to: ref('dim_dates')
+                field: date_id
+      - name: incoming
+        description: "incoming money (debtor payments)"
+        data_tests:
+          - not_null
+      - name: outgoing
+        description: "outgoing money (purchasing batches)"
+        data_tests:
+          - not_null

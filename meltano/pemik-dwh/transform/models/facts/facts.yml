@@ -141,6 +141,13 @@ models:
           - relationships:
               to: ref('dim_cases')
               field: case_id
+      - name: debt_id
+        description: "debt dimension"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_debts')
+              field: debt_id
       - name: invoice_date
         description: "date dimension"
         data_tests:
@@ -184,4 +191,15 @@ models:
           - not_null
           - relationships:
                 to: ref('dim_purchases')
-                field: purchase_id 
+                field: purchase_id
+      - name: purchased_at
+        description: "date dimension"
+        data_tests:
+          - not_null
+          - relationships:
+                to: ref('dim_dates')
+                field: date_id
+      - name: batch_purchase_value
+        description: "the value of the batch purchase"
+        data_tests:
+          - not_null

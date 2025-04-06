@@ -1,14 +1,30 @@
+{{ config(
+	materialized = 'table',
+	unlogged=True,
+    indexes=[
+      {'columns': ['payed_debt_id'], 'unique': True},
+	  {'columns': ['sector_id']},
+	  {'columns': ['partner_id']},
+	  {'columns': ['purchase_id']},
+	  {'columns': ['case_id']},
+	  {'columns': ['debt_id']},
+	  {'columns': ['invoice_date']}
+    ]
+)}}
+
 select
 	pd.payed_debt_id,
 	s.sector_id,
 	r.partner_id,
 	p.purchase_id,
 	c.case_id,
+	d.debt_id,
 	d.calculated_to as invoice_date,
 	d.calculated_to - d.calculated_from as days_covered,
 	pd.debt_amount_covered,
 	pd.interest_amount_covered,
-	pd.overpayment
+	pd.overpayment,
+	pd.debt_amount_covered + pd.interest_amount_covered + pd.overpayment as total
 from
 	{{ source("staging", "sectors") }} s,
 	{{ source("staging", "partners") }} r,

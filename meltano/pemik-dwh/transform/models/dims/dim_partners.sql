@@ -1,3 +1,11 @@
+{{ config(
+	materialized = 'table',
+	unlogged=True,
+    indexes=[
+      {'columns': ['partner_id'], 'unique': True}
+    ]
+)}}
+
 select 
 	p.partner_id, 
 	p."name" as partner_name,

@@ -25,3 +25,7 @@ sources:
         description: "debt records"
       - name: payed_debts
         description: "covered debt records"
+      - name: genders
+        description: "available genders"
+      - name: cities
+        description: "city data"

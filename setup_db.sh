@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "*:*:*:meltano:pass" >> ${PWD}/tdb/srv1/mnt/config/.pgpass 
+#echo "*:*:*:meltano:pass" >> ${PWD}/tdb/srv1/mnt/config/.pgpass 
 
 docker exec -u postgres srv1 psql -p 5432 -U cms -d cms -t -c "CREATE USER meltano;"
 docker exec -u postgres srv1 psql -p 5432 -U cms -d cms -t -c "alter user meltano with password 'pass';"

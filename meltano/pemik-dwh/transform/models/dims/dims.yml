@@ -47,3 +47,21 @@ models:
           - not_null
           - unique
           - dbt_constraints.primary_key
+  - name: dim_debts
+    description: "debt dimension"
+    columns:
+      - name: debt_id
+        description: "primary key"
+        data_tests:
+          - not_null
+          - unique
+          - dbt_constraints.primary_key
+  - name: dim_persons
+    description: "person dimension"
+    columns:
+      - name: person_id
+        description: "primary key"
+        data_tests:
+          - not_null
+          - unique
+          - dbt_constraints.primary_key

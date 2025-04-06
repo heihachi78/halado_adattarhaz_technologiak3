@@ -1,30 +1,30 @@
-{{ config(
-	materialized = 'table',
-	unlogged=True,
-    indexes=[
-      {'columns': ['payment_id'], 'unique': True},
-	  {'columns': ['sector_id']},
-	  {'columns': ['partner_id']},
-	  {'columns': ['purchase_id']},
-	  {'columns': ['case_id']},
-	  {'columns': ['debtor_id']},
-	  {'columns': ['person_id']},
-	  {'columns': ['bank_account_id']},
-	  {'columns': ['payment_date']}
-    ]
-)}}
-
+select
+	s.sector_id,
+	p.partner_id,
+	p.purchased_at::date as data_point_date,
+    sum(0) as incoming,
+	sum(p.batch_purchase_value) as outgoing
+from
+	{{ source("staging", "purchases") }} p,
+	{{ source("staging", "partners") }} r,
+	{{ source("staging", "sectors") }} s
+where
+	p.deleted_at is null and
+	r.deleted_at is null and
+	r.partner_id = p.partner_id and
+	s.deleted_at is null and
+	s.sector_id = r.sector_id
+group by
+	s.sector_id,
+	p.partner_id,
+	p.purchased_at::date
+union ALL
 select 
-	p.payment_id,
 	o.sector_id,
 	n.partner_id,
-	r.purchase_id,
-	c.case_id,
-	d.debtor_id,
-	t.person_id,
-	a.bank_account_id,
-	p.payment_date::date,
-	p.amount
+	p.payment_date::date as data_point_date,
+	sum(p.amount) as incoming,
+    sum(0) as outgoing
 from
 	{{ source("staging", "sectors") }} o,
 	{{ source("staging", "partners") }} n,
@@ -51,3 +51,7 @@ where
 	t.deleted_at is null and
 	a.deleted_at is null and
 	p.deleted_at is null
+group by
+	o.sector_id,
+	n.partner_id,
+	p.payment_date::date

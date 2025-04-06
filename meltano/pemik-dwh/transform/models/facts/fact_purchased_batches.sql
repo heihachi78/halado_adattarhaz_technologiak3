@@ -1,7 +1,19 @@
+{{ config(
+	materialized = 'table',
+	unlogged=True,
+    indexes=[
+      {'columns': ['purchase_id'], 'unique': True},
+	  {'columns': ['sector_id']},
+	  {'columns': ['partner_id']},
+	  {'columns': ['purchased_at']}
+    ]
+)}}
+
 select
 	s.sector_id,
 	p.partner_id,
 	p.purchase_id,
+	p.purchased_at::date,
 	p.batch_purchase_value
 from
 	{{ source("staging", "purchases") }} p,

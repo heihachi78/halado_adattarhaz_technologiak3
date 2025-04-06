@@ -1,3 +1,11 @@
+{{ config(
+	materialized = 'table',
+	unlogged=True,
+    indexes=[
+      {'columns': ['date_id'], 'unique': True}
+    ]
+)}}
+
 SELECT 
     d::DATE AS date_id,
     EXTRACT(YEAR FROM d) AS year,
