@@ -148,6 +148,13 @@ models:
           - relationships:
               to: ref('dim_debts')
               field: debt_id
+      - name: person_id
+        description: "person dimension"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_persons')
+              field: person_id
       - name: invoice_date
         description: "date dimension"
         data_tests:
