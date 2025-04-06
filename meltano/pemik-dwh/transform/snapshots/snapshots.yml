@@ -1,0 +1,8 @@
+snapshots:
+  - name: persons_snapshot
+    relation: ref('ephemeral_persons')
+    config:
+      schema: snapshots
+      unique_key: person_id
+      strategy: timestamp
+      updated_at: updated_at

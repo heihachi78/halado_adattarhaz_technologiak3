@@ -1,0 +1,12 @@
+
+version: 2
+
+models:
+  - name: ephemeral_persons
+    description: "person data for snapshotting"
+    columns:
+      - name: person_id
+        description: "primary and unique key"
+        data_tests:
+          - not_null
+          - unique
