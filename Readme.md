@@ -7,6 +7,20 @@ A feladatban a haladó adatbázis kezelő rendszerek beadandóban elkészített 
 
 A megvalósított folyamat része az adatok kinyerése a tranzakcionális rendszerből, betöltése az adattárházba, a szükséges transzformációk elvégzése. Az előállított transzformált adatokhoz BI eszközzel különböző kimutatásokat valósítottam meg.
 
+## Telepítés
+### Szükséges eszközök
+A repository klónozása mellett szükséges, hogy a futtatásra használt gépen telepítve legyenenek az alábbi eszközök:
+- python
+- MacOS esetében 3.13.2 verzióval volt tesztelve,
+- Ubuntu esetében 3.12.3 verzióval volt tesztelve.
+- Docker Desktop
+- internet kapcsolat
+
+### Telepítés és futtatás
+A gyökér könyvtárban található **install.sh** fájl végzi a telepítést, amely összeállítja a szükséges Docker konténereket, elindítja őket, összeállítja az adatbázis szerkezetét és adatait is, elindítja az áttöltéseket és az orchestratort és (madjnem) az összes UI-t. Az **uninstall.sh** segítségével a Docker konténerek és az alkalmazás és a repository visszaállítható a kiinduló állapotára.
+
+Ha szükséges, akkor elérhető a forrás rendszer webes felülete is, a tdb könyvtárban a Python environmentet aktiválni kell (source .venv/bin/activate), majd a ./run.sh futtátásával a felület elindul.
+
 ## Alkalmazott technológiák
 Az adatbázis kezelő rendszer a PostgreSQL(1) úgy a tranzakcionális rendszerben, mint az adattárházban. A kettő közötti adatmozgatást a Meltano(2) valósítja meg. Az adatok transzformációjához dbt-core(3)-t használtam. Az áttöltések és a transzformáció ütemezése és koordinálására a Prefect(4)-et használtam. Az adattárház adataiból a kimutatásokat a Metabase(5) BI eszközzel készítettem el. A teljes infrastruktúra Docker(6) konténerekben fut. A Prefect-hez szükséges kódokhoz a Python(7) programozási nyelvet használtam.
 
