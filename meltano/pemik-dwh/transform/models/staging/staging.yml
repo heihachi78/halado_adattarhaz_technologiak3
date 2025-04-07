@@ -17,6 +17,8 @@ sources:
         description: "debtor records"
       - name: persons
         description: "person records"
+      - name: persons_snapshot
+        description: "snapshotted person records"
       - name: bank_accounts
         description: "bank account records"
       - name: payments
