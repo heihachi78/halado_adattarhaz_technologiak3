@@ -27,7 +27,7 @@ from
 	{{ source("staging", "purchases") }} r,
 	{{ source("staging", "cases") }} c,
 	{{ source("staging", "debtors") }} d,
-	{{ source("staging", "persons") }} t,
+	{{ source("staging", "persons_snapshot") }} t,
 	{{ source("staging", "bank_accounts") }} a,
 	{{ source("staging", "payments") }} p
 where
@@ -46,4 +46,5 @@ where
 	d.deleted_at is null and
 	t.deleted_at is null and
 	a.deleted_at is null and
-	p.deleted_at is null
+	p.deleted_at is null AND
+	t.dbt_valid_to is null

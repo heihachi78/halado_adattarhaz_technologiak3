@@ -2,3 +2,4 @@
 .venv
 tdb
 prefect/flows/cred.json
+**/.DS_Store

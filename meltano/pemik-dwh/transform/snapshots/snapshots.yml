@@ -2,7 +2,7 @@ snapshots:
   - name: persons_snapshot
     relation: ref('ephemeral_persons')
     config:
-      schema: snapshots
+      target_schema: staging
       unique_key: person_id
       strategy: timestamp
       updated_at: snapshot_updated_at

@@ -37,7 +37,7 @@ from
 	{{ source("staging", "debts") }} d,
 	{{ source("staging", "payed_debts") }} pd,
 	{{ source("staging", "payments") }} m,
-	{{ source("staging", "persons") }} n
+	{{ source("staging", "persons_snapshot") }} n
 where
 	s.sector_id = r.sector_id and
 	r.partner_id = p.partner_id and
@@ -53,4 +53,5 @@ where
 	d.deleted_at is null and
 	pd.deleted_at is null and
 	n.deleted_at is null and
-	m.deleted_at is null
+	m.deleted_at is null and
+	n.dbt_valid_to is null
