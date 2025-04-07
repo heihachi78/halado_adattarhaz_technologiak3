@@ -40,6 +40,7 @@ A dwh-ban előállt adatok alapján azok megtekintésére a Metabase által bizt
 
 ## A használt dwh adatbázis modell
 (minták)
+
 ![alt text](doc/image-8.png)
 ![alt text](doc/image-9.png)
 
