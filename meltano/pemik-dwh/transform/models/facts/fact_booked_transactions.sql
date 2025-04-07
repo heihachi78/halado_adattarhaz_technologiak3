@@ -54,4 +54,4 @@ where
 	pd.deleted_at is null and
 	n.deleted_at is null and
 	m.deleted_at is null and
-	n.dbt_valid_to is null
+	d.calculated_to between n.dbt_valid_from and coalesce(n.dbt_valid_to, CURRENT_DATE + 1)

@@ -47,4 +47,4 @@ where
 	t.deleted_at is null and
 	a.deleted_at is null and
 	p.deleted_at is null AND
-	t.dbt_valid_to is null
+	p.payment_date between t.dbt_valid_from and coalesce(t.dbt_valid_to, CURRENT_DATE + 1)
